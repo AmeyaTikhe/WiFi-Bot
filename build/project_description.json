@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "RCFin",
-    "project_version":    "1",
+    "project_version":    "305c5b5-dirty",
     "project_path":       "C:/Users/ameya/Desktop/Coding/RCFin",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.4",
     "build_dir":          "C:/Users/ameya/Desktop/Coding/RCFin/build",
