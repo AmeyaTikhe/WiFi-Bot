@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wifi controlled robot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Square Boxes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antic&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antic&family=Hammersmith+One&display=swap" rel="stylesheet" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Antic&family=Hammersmith+One&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        *
+        html {
+          margin: 0;
+          padding: 0;
+        }
+        
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          width: 100%;
+          overflow-x: hidden;
+        } 
+
+        .grid{
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(3, 105px);
+        grid-template-rows: repeat(3, 105px);
+        }
+  
+        .container{
+        width: 100%; /* Adjust the width as needed */
+        height: 80%; /* Adjust the height as needed */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+  
+        #heading{
+        height: 110px;
+        width: 100%;
+        font-family: Rubik;
+        font-size: 40px;
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+        margin-bottom: 40px;
+        background-color: #000814;
+        }
+  
+        h1{
+        color: white;
+        text-align: centre;
+        }
+  
+        .square {
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #d9d9d9;
+        transition: background-color 0.2s ease;
+        }
+
+        .side:hover{
+            background-color: #ff0f39;
+            transition: background-color 0.3s ease;
+        }
+  
+        #R2C2{
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+        }
+  
+        #arrow{
+        padding-top: 5px;
+        font-size: 100px;
+        font-family: Hammersmith One;
+        color: #666769;
+        }
+  
+        .center {
+        background-color: darkgrey;
+        }
+  
+        .blue {
+        background-color: #4cc9f0;
+        }
+  
+        .red {
+        background-color: red;
+        }
+
+        #body{
+            display: flex;
+            justify-content: space-around;
+            align-content: center;
+            align-items: center;
+            width: 100vw;
+        }
+
+        .panel{
+            height: 400px;
+            width: 500px;
+            border-radius: 10px;
+            text-align: center;
+            align-content: center;
+            border-width: 2px;
+            border-color: #f2f2f2;
+            border-style: solid;
+        }
+        #panelr{
+            background-color: #f2f2f2;
+            margin-right: 5%;
+        }
+
+        #panell{
+            background-color: #f2f2f2;
+            margin-left: 5%;
+        }
+
+        .pp{
+            margin-bottom: 20px;
+            font-size: 25px;
+            color: #666769;
+            font-family: Ubuntu;
+        }
+
+        #result{
+            border-style: solid;
+            border-width: 5px;
+            border-radius: 10px;
+            border-color: #312e2d;
+            width: 80%;
+            height: 50px;
+            margin: 0 auto;
+            font-family: Ubuntu;
+            background-color: black;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            align-content: center;
+            padding: 30px;
+        }
+
+        #transcribe{
+            width: 95%;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            margin-left: 5%;
+            margin-right: 5%;
+            padding: 0%;
+        }
+        #inside{
+            margin: 0px;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1 1 auto;
+            margin-right: 0;
+        }
+
+        #start{
+            border-width: 0px;
+            background-color: white;
+        }
+
+        #wifi{
+            margin: 0px;
+            border-radius: 10px;
+            border-style: solid;
+            border-width: 5px;
+            border-color: #0a2463;
+            background-color: #0a2463;
+            width: 20%;
+            height: 50px;
+            margin: 0 auto;
+            font-family: Roboto;
+            text-align: center;
+            align-content: center;
+            padding: 30px;
+            margin-right: -25px;
+            transition: opacity 3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #wifi.hidden{
+            opacity: 0;
+            transition: opacity 3s ease;
+        }
+
+        #status{
+            color: white;
+            font-size: 40px;
+        }
+
+        #loading-icon {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="words" id="heading">
+        <h1>REMOTE CONTROL</h1>
+    </div>
+    <div id="body">
+        <div class="panel" id="panell">
+            <p class="pp">A = Back & Left</p>
+            <p class="pp">D = Back & Right</p>
+            <p class="pp">X = Anticlockwise</p>
+            <p class="pp">C = Clockwise</p>
+        </div>  
+        <div class="container">
+        <div class="grid">
+            <div class="square side" id="R1C1"></div>
+            <div class="square side" id="R1C2"></div>
+            <div class="square side" id="R1C3"></div>
+            <div class="square side" id="R2C1"></div>
+            <div class="square center" id="R2C2">
+                <p title="Robot" id="arrow">+</p>
+            </div>
+            <div class="square side" id="R2C3"></div>
+            <div class="square side" id="R3C1"></div>
+            <div class="square side" id="R3C2"></div>
+            <div class="square side" id="R3C3"></div>
+        </div>
+        </div>
+        <div class="panel" id="panelr">
+            <p class="pp">Up Arrow = Front</p>
+            <p class="pp">Down Arrow = Back</p>
+            <p class="pp">Left Arrow = Front & Left</p>
+            <p class="pp">Rigth Arrow = Front & Right</p>
+        </div>
+    </div>
+
+    <script>
+        var websocket = new WebSocket("ws://" + location.hostname + "/");
+
+        const R1C1 = document.getElementById('R1C1');
+        const R1C2 = document.getElementById('R1C2');
+        const R1C3 = document.getElementById('R1C3');
+        const R2C1 = document.getElementById('R2C1');
+        const R2C2 = document.getElementById('R2C2');
+        const R2C3 = document.getElementById('R2C3');
+        const R3C1 = document.getElementById('R3C1');
+        const R3C2 = document.getElementById('R3C2');
+        const R3C3 = document.getElementById('R3C3');
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp') {
+                R1C1.classList.add('blue');
+                R1C2.classList.add('blue');
+                R1C3.classList.add('blue');
+                websocket.send("F" + "true");
+            } else if (event.key === 'ArrowDown') {
+                R3C1.classList.add('blue');
+                R3C2.classList.add('blue');
+                R3C3.classList.add('blue');
+                websocket.send("B" + "true");
+            } else if (event.key === 'ArrowLeft') {
+                R1C1.classList.add('blue');
+                R1C2.classList.add('blue');
+                R1C3.classList.add('blue');
+                R2C1.classList.add('blue');
+                R3C1.classList.add('blue');
+                websocket.send("L" + "true");
+            } else if (event.key === 'ArrowRight') {
+                R1C1.classList.add('blue');
+                R1C2.classList.add('blue');
+                R1C3.classList.add('blue');
+                R2C3.classList.add('blue');
+                R3C3.classList.add('blue');
+                websocket.send("R" + "true");
+            } else if (event.keyCode === 65 || event.keyCode === 97) {
+                R1C1.classList.add('blue');
+                R2C1.classList.add('blue');
+                R3C1.classList.add('blue');
+                R3C2.classList.add('blue');
+                R3C3.classList.add('blue');
+                websocket.send("A" + "true");
+            } else if (event.keyCode === 68 || event.keyCode === 98) {
+                R1C3.classList.add('blue');
+                R2C3.classList.add('blue');
+                R3C3.classList.add('blue');
+                R3C2.classList.add('blue');
+                R3C1.classList.add('blue');
+                websocket.send("D" + "true");
+            }
+        });
+
+        document.addEventListener('keyup', (event) => {
+            if (event.key === 'ArrowUp') {
+                R1C1.classList.remove('blue');
+                R1C2.classList.remove('blue');
+                R1C3.classList.remove('blue');
+            } else if (event.key === 'ArrowDown') {
+                R3C1.classList.remove('blue');
+                R3C2.classList.remove('blue');
+                R3C3.classList.remove('blue');
+            } else if (event.key === 'ArrowLeft') {
+                R1C1.classList.remove('blue');
+                R1C2.classList.remove('blue');
+                R1C3.classList.remove('blue');
+                R2C1.classList.remove('blue');
+                R3C1.classList.remove('blue');
+            } else if (event.key === 'ArrowRight') {
+                R1C1.classList.remove('blue');
+                R1C2.classList.remove('blue');
+                R1C3.classList.remove('blue');
+                R2C3.classList.remove('blue');
+                R3C3.classList.remove('blue');
+            } else if (event.keyCode === 65 || event.keyCode === 97) {
+                R1C1.classList.remove('blue');
+                R2C1.classList.remove('blue');
+                R3C1.classList.remove('blue');
+                R3C2.classList.remove('blue');
+                R3C3.classList.remove('blue');
+            } else if (event.keyCode === 68 || event.keyCode === 98) {
+                R1C3.classList.remove('blue');
+                R2C3.classList.remove('blue');
+                R3C3.classList.remove('blue');
+                R3C2.classList.remove('blue');
+                R3C1.classList.remove('blue');
+            }
+        });
+
+        const squares = [
+            document.getElementById('R1C2'),
+            document.getElementById('R1C3'),
+            document.getElementById('R2C3'),
+            document.getElementById('R3C3'),
+            document.getElementById('R3C2'),
+            document.getElementById('R3C1'),
+            document.getElementById('R2C1'),
+            document.getElementById('R1C1'),
+        ];
+
+        let currentSquareIndex = 0;
+
+        document.addEventListener('keydown', (event) => 
+        {
+            if (event.key === 'c' || event.key === 'C') 
+            {
+                websocket.send("C" + "true");
+                squares[currentSquareIndex].classList.add('blue');
+                currentSquareIndex = (currentSquareIndex + 1) % squares.length;
+            }
+        });
+
+        document.addEventListener('keyup', (event) => 
+        {
+            if (event.key === 'c' || event.key === 'C') 
+            {
+                for (let i = 0; i < squares.length; i++) 
+                {
+                    if (squares[i].classList.contains('blue')) 
+                    {
+                        squares[i].classList.remove('blue');
+                    }
+                }
+                currentSquareIndex = 0;
+            }
+        });
+
+        document.addEventListener('keydown', (event) => 
+        {
+            if (event.key === 'x' || event.key === 'X') 
+            {
+                websocket.send("X" + "true");
+                squares[currentSquareIndex].classList.add('blue');
+                currentSquareIndex = (currentSquareIndex - 1 + squares.length) % squares.length;
+            }
+        });
+
+        document.addEventListener('keyup', (event) => 
+        {
+            if (event.key === 'x' || event.key === 'X') 
+            {
+                for (let i = 0; i < squares.length; i++) 
+                {
+                    if (squares[i].classList.contains('blue')) 
+                    {
+                        squares[i].classList.remove('blue');
+                    }
+                }
+                currentSquareIndex = 0;
+            }
+        });
+    </script>
+
+    <div id="transcribe">
+        <div id="wifi">
+            <h1 id="status">Wifi Speed</h1>
+            <img id="loading-icon" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+g4JCEAA7" alt="loading" style="display: none;">
+            <script>
+                var userImageLink = "https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200714180638/CIP_Launch-banner.png";
+                var time_start, end_time;
+                var downloadSize = 5616998; 
+                var downloadImgSrc = new Image();
+                var loadingIcon = document.getElementById('loading-icon');
+
+                downloadImgSrc.onload = function () {
+                end_time = new Date().getTime();
+                displaySpeed();
+                loadingIcon.style.display = 'none';
+                };
+
+                function displaySpeed() {
+                var timeDuration = (end_time - time_start) / 1000;
+                var loadedBits = downloadSize * 8;
+                var bps = (loadedBits / timeDuration).toFixed(2);
+                var speedInKbps = (bps / 1024).toFixed(2);
+                var speedInMbps = (speedInKbps / 343909).toFixed(2);
+                document.getElementById("status").textContent = speedInMbps + " Mbps\n";
+                }
+
+                document.addEventListener('keydown', function(event) {
+                if (event.key === 'i' || event.key === 'I') {
+                loadingIcon.style.display = 'inline-block';
+                time_start = new Date().getTime();
+                downloadImgSrc.src = userImageLink;
+                }
+                });
+
+            </script>
+        </div>
+    <div id="inside">    
+    <textarea id = "result" rows="8" cols="80">Press spacebar to transcribe...</textarea> <br>
+    <button id = "start"></button>
+    </div>
+		<script type="text/javascript">
+
+            // get the start button element
+            const startButton = document.getElementById('start');
+
+            // create a new event listener for the keydown event
+            window.addEventListener('keydown', event => {
+            // check if the key pressed is the spacebar
+            if (event.key === ' ') {
+            // simulate a click on the start button
+            startButton.click();
+            }
+            });
+
+            // get the result element
+            const resultElement = document.getElementById('result');
+
+            // create a new speech recognition object
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+
+            // set the language
+            recognition.lang = window.navigator.language;
+            recognition.interimResults = true;
+
+            // add an event listener for the start button
+            startButton.addEventListener('click', () => {
+            recognition.start();
+            });
+
+            // add event listeners for the recognition object
+            recognition.addEventListener('result', event => {
+            // get the transcript from the event
+            const transcript = event.results[event.results.length - 1][0].transcript;
+
+            // display the transcript in the result element
+            resultElement.textContent = transcript;
+            });
+
+            recognition.addEventListener('end', () => {
+             // do something when the recognition ends
+            });
+
+		</script>
+        </div>
+
+</body>
+</html>
