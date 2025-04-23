@@ -27,6 +27,7 @@ This project sets up a WebSocket and HTTP server on an ESP32 to enable real-time
 ## Simulation
 
 ![](RCServer.png)
+[Watch the video here.](https://youtu.be/fkqx3PHtSvo)
 
 ### Following are the available keyboard commands:
 
