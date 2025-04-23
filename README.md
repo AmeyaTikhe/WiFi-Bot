@@ -4,6 +4,16 @@ This project sets up a WebSocket and HTTP server on an ESP32 to enable real-time
 
 ---
 
+## Table of Contents
+
+1. [Features](#features)
+2. [Simulation](#simulation)
+    - [Keyboard Commands](#following-are-the-available-keyboard-commands)
+3. [Project Workflow](#project-workflow)
+4. [Prerequisites](#prerequisites)
+
+---
+
 ## Features
 
 -  Wi-Fi AP/STA modes supported
