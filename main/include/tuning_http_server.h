@@ -42,7 +42,7 @@ typedef struct comms_val
     bool val_changed;
 } comms_val_t;
 
-comms_val_t read_comms();
+comms_val_t* read_comms();
 void reset_val_changed_coms();
 void start_websocket_server();
 

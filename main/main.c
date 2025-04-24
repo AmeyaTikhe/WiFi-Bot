@@ -20,58 +20,66 @@ void drive_task(void *args)
 	ESP_ERROR_CHECK(enable_motor_driver(&motor_a_1, MOTOR_A_1));
 
     while(true){
-        if(read_comms().val_changed){
+        if(read_comms()->val_changed){
             // float speed = read_comms().speed;
             // //print to console
             // ESP_LOGI(TAG, "speed: %f", speed);
             // float motor_pwm = bound((speed), MIN_PWM, MAX_PWM);
-            if(read_comms().forward)
+            if(read_comms()->forward == true)
             {
                 ESP_LOGI(TAG, "forward");
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_FORWARD, MAX_PWM));
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_FORWARD, MAX_PWM));
+                read_comms()->forward = false;
             } 
-            else if(read_comms().backward)
+            else if(read_comms()->backward == true)
             {
                 ESP_LOGI(TAG, "backward");
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_BACKWARD, MAX_PWM));
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_BACKWARD, MAX_PWM));
+                read_comms()->backward = false;
             } 
-            else if(read_comms().front_left) 
+            else if(read_comms()->front_left == true) 
             {
                 ESP_LOGI(TAG, "front and left");
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_FORWARD, MIN_PWM));
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_FORWARD, MAX_PWM));
+                read_comms()->front_left = false;
             }
-            else if(read_comms().front_right) 
+            else if(read_comms()->front_right == true) 
             {
                 ESP_LOGI(TAG, "front and right");
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_FORWARD, MAX_PWM));
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_FORWARD, MIN_PWM));
+                read_comms()->front_right = false;
             }
-            else if(read_comms().back_right) 
+            else if(read_comms()->back_right == true) 
             {
                 ESP_LOGI(TAG, "back and right");
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_BACKWARD, MAX_PWM));
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_BACKWARD, MIN_PWM));
+                read_comms()->back_right = false;
             }  
-            else if(read_comms().back_left) 
+            else if(read_comms()->back_left == true) 
             {
                 ESP_LOGI(TAG, "back and left");
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_BACKWARD, MIN_PWM));
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_BACKWARD, MAX_PWM));
+                read_comms()->back_left = false;
             } 
-            else if(read_comms().anticlockwise) 
+            else if(read_comms()->anticlockwise == true) 
             {
                 ESP_LOGI(TAG, "anticlockwise");
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_BACKWARD, MIN_PWM));
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_FORWARD, MIN_PWM));
+                read_comms()->anticlockwise = false;
             } 
-            else if(read_comms().clockwise) 
+            else if(read_comms()->clockwise == true) 
             {
                 ESP_LOGI(TAG, "clockwise");
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_FORWARD, MIN_PWM));
                 ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_BACKWARD, MIN_PWM));
+                read_comms()->clockwise = false;
             } 
             else 
             {

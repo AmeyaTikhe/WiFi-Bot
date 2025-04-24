@@ -231,9 +231,9 @@ static void server_handle_task(void *pvParameters)
     vTaskDelete(NULL);
 }
 
-comms_val_t read_comms()
+comms_val_t* read_comms()
 {
-    return comms_val;
+    return &comms_val;
 }
 
 void reset_val_changed_coms(){
