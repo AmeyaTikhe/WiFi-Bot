@@ -6,8 +6,8 @@
 #include <stdio.h>
 #include <math.h>
 
-#define MAX_PWM (50.0f)
-#define MIN_PWM (30.0f)
+#define MAX_PWM 80
+#define MIN_PWM 50
 
 #define TAG "COMMS_WEBSOCKET_SERVER"
 
@@ -28,65 +28,69 @@ void drive_task(void *args)
             if(read_comms()->forward == true)
             {
                 ESP_LOGI(TAG, "forward");
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_FORWARD, MAX_PWM));
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_FORWARD, MAX_PWM));
+                set_motor_speed(motor_a_0, MOTOR_FORWARD, MAX_PWM);
+                set_motor_speed(motor_a_1, MOTOR_FORWARD, MAX_PWM);
                 read_comms()->forward = false;
             } 
             else if(read_comms()->backward == true)
             {
                 ESP_LOGI(TAG, "backward");
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_BACKWARD, MAX_PWM));
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_BACKWARD, MAX_PWM));
+                set_motor_speed(motor_a_0, MOTOR_BACKWARD, MAX_PWM);
+                set_motor_speed(motor_a_1, MOTOR_BACKWARD, MAX_PWM);
                 read_comms()->backward = false;
             } 
             else if(read_comms()->front_left == true) 
             {
                 ESP_LOGI(TAG, "front and left");
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_FORWARD, MIN_PWM));
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_FORWARD, MAX_PWM));
+                set_motor_speed(motor_a_0, MOTOR_FORWARD, MIN_PWM);
+                set_motor_speed(motor_a_1, MOTOR_FORWARD, MAX_PWM);
                 read_comms()->front_left = false;
             }
             else if(read_comms()->front_right == true) 
             {
                 ESP_LOGI(TAG, "front and right");
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_FORWARD, MAX_PWM));
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_FORWARD, MIN_PWM));
+                set_motor_speed(motor_a_0, MOTOR_FORWARD, MAX_PWM);
+                set_motor_speed(motor_a_1, MOTOR_FORWARD, MIN_PWM);
                 read_comms()->front_right = false;
             }
             else if(read_comms()->back_right == true) 
             {
                 ESP_LOGI(TAG, "back and right");
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_BACKWARD, MAX_PWM));
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_BACKWARD, MIN_PWM));
+                set_motor_speed(motor_a_0, MOTOR_BACKWARD, MAX_PWM);
+                set_motor_speed(motor_a_1, MOTOR_BACKWARD, MIN_PWM);
                 read_comms()->back_right = false;
             }  
             else if(read_comms()->back_left == true) 
             {
                 ESP_LOGI(TAG, "back and left");
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_BACKWARD, MIN_PWM));
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_BACKWARD, MAX_PWM));
+                set_motor_speed(motor_a_0, MOTOR_BACKWARD, MIN_PWM);
+                set_motor_speed(motor_a_1, MOTOR_BACKWARD, MAX_PWM);
                 read_comms()->back_left = false;
             } 
             else if(read_comms()->anticlockwise == true) 
             {
                 ESP_LOGI(TAG, "anticlockwise");
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_BACKWARD, MIN_PWM));
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_FORWARD, MIN_PWM));
+                set_motor_speed(motor_a_0, MOTOR_BACKWARD, MIN_PWM);
+                set_motor_speed(motor_a_1, MOTOR_FORWARD, MIN_PWM);
                 read_comms()->anticlockwise = false;
             } 
             else if(read_comms()->clockwise == true) 
             {
                 ESP_LOGI(TAG, "clockwise");
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_FORWARD, MIN_PWM));
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_BACKWARD, MIN_PWM));
+                set_motor_speed(motor_a_0, MOTOR_FORWARD, MIN_PWM);
+                set_motor_speed(motor_a_1, MOTOR_BACKWARD, MIN_PWM);
                 read_comms()->clockwise = false;
             } 
             else 
             {
                 ESP_LOGI(TAG, "stop");
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_0, MOTOR_STOP, 0));
-                ESP_ERROR_CHECK(set_motor_speed(motor_a_1, MOTOR_STOP, 0));
+                set_motor_speed(motor_a_0, MOTOR_STOP, 0);
+                set_motor_speed(motor_a_1, MOTOR_STOP, 0);
             }
+
+            vTaskDelay(100 / portTICK_PERIOD_MS);
+            set_motor_speed(motor_a_0, MOTOR_STOP, 0);
+            set_motor_speed(motor_a_1, MOTOR_STOP, 0);
             reset_val_changed_coms();
         }
         vTaskDelay(10 / portTICK_PERIOD_MS);
